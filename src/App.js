@@ -1,25 +1,36 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import HomeMenu from './HomeMenu'
+import CircularStatic from './CircularStatic'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: navigator.onLine ? '#99346d': '#7b7b7b' },
+    secondary: { main: '#f50057' },
+  },
+});
 class App extends Component {
+  state={
+    progress: 0
+  }
+  componentDidMount(){
+    fetch('https://cors-escape.herokuapp.com/http://my-hive.com/beer/progress/CWB', { 
+        headers: {'Origin': 'http://my-hive.com'} 
+      }).then(response => {
+      response.text().then(body => {
+        let json = JSON.parse(body.replace('joblog(', '').replace(')', ''))
+        this.setState({progress: json.Total})
+      });
+    })
+  }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <MuiThemeProvider theme={theme}>
+          <HomeMenu/>
+          <CircularStatic progress={this.state.progress}/>
+        </MuiThemeProvider>
       </div>
     );
   }
