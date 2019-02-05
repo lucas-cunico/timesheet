@@ -15,7 +15,7 @@ class App extends Component {
     progress: 0
   }
   componentDidMount(){
-    fetch('https://cors-escape.herokuapp.com/http://my-hive.com/beer/progress/CWB', { 
+    fetch('https://timesheeeet.herokuapp.com/http://my-hive.com/beer/progress/CWB', { 
         headers: {'Origin': 'http://my-hive.com'} 
       }).then(response => {
       response.text().then(body => {
