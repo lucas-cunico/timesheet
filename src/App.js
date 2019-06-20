@@ -9,6 +9,9 @@ const theme = createMuiTheme({
     primary: { main: navigator.onLine ? '#99346d': '#7b7b7b' },
     secondary: { main: '#f50057' },
   },
+  typography: {
+    useNextVariants: true,
+  },
 });
 class App extends Component {
   state={

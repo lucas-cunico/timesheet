@@ -35,7 +35,7 @@ class NotificationMenu extends React.Component{
         this.setState({ anchorEl: null, open: false });
     };
     render(){
-        const { anchorEl, open  } = this.state;
+        const { open  } = this.state;
         const { classes } = this.props;
         let notificationIsSuported = 'serviceWorker' in navigator && 'PushManager' in window
         if(!notificationIsSuported){
